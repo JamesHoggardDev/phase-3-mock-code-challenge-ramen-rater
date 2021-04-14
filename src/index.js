@@ -26,7 +26,7 @@ ramenMenu.addEventListener('click', event =>{
             .then(resp => resp.json())
             .then(ramenObj =>{
 
-                
+                const detailImg = document.querySelector('img.detail-image')
                 detailImg.src = ramenObj.image
                 detailImg.alt = ramenObj.name
 
