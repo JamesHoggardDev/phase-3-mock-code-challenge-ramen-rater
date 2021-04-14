@@ -11,9 +11,6 @@ function renderRamenMenu(){
     })      
 }
 
-
-
-
 function renderOneMenuImage(ramenObject){
     const img = document.createElement('img')
         img.src = ramenObject.image
@@ -29,7 +26,7 @@ ramenMenu.addEventListener('click', event =>{
             .then(resp => resp.json())
             .then(ramenObj =>{
 
-                const detailImg = document.querySelector('img.detail-image')
+                
                 detailImg.src = ramenObj.image
                 detailImg.alt = ramenObj.name
 
@@ -47,6 +44,7 @@ ramenMenu.addEventListener('click', event =>{
 
                 detailedRamenUpdateForm.dataset.id = ramenObj.id
                 //has to click to update
+                
             })
     }
 })
@@ -71,3 +69,23 @@ detailedRamenUpdateForm.addEventListener("submit", event => {
     detailedRamenUpdateForm.reset()
 })
 
+
+const deleteBttn = document.createElement('button')
+deleteBttn.classList = "delete-button"
+deleteBttn.dataset.id = 1
+deleteBttn.textContent = "Delete"
+detailedRamenUpdateForm.append(deleteBttn)
+
+deleteBttn.addEventListener('click', event => {
+    if(event.target.className === 'delete-button'){
+
+
+        detailImg.remove()
+    }
+} )
+
+
+
+
+
+// function deleteRamen(){}
