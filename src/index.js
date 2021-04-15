@@ -49,7 +49,6 @@ ramenMenu.addEventListener('click', event =>{
     }
 })
 
-
 detailedRamenUpdateForm.addEventListener("submit", event => {
     event.preventDefault()
 
@@ -71,18 +70,18 @@ detailedRamenUpdateForm.addEventListener("submit", event => {
 
 
 const deleteBttn = document.createElement('button')
-deleteBttn.classList = "delete-button"
+deleteBttn.classList.add("delete-button")
 deleteBttn.dataset.id = 1
 deleteBttn.textContent = "Delete"
 detailedRamenUpdateForm.append(deleteBttn)
 
-deleteBttn.addEventListener('click', event => {
-    if(event.target.className === 'delete-button'){
+// deleteBttn.addEventListener('click', event => {
+//     if(event.target.className === 'delete-button'){
 
 
-        detailImg.remove()
-    }
-} )
+//         detailImg.remove()
+//     }
+// } ) 
 
 
 
