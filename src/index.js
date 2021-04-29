@@ -2,6 +2,32 @@ renderRamenMenu()
 
 const ramenMenu = document.querySelector("#ramen-menu")
 const detailedRamenUpdateForm = document.querySelector("#ramen-rating")
+const deleteBttn = document.querySelector("#ramen-rating > button")
+
+
+fetch('http://localhost:3000/ramens/1')
+    .then(res => res.json())
+    .then(firstObj =>{
+
+        const detailImg = document.querySelector('img.detail-image')
+        detailImg.src = firstObj.image
+        detailImg.alt = firstObj.name
+
+        const detailH2 = document.querySelector("#ramen-detail > h2")
+        detailH2.textContent = firstObj.name
+
+        const detailH3 = document.querySelector("#ramen-detail > h3")
+        detailH3.textContent = firstObj.restaurant
+
+        const ratingInput = document.querySelector("#rating")
+        ratingInput.value = firstObj.rating
+
+        const commentInput = document.querySelector("#comment")
+        commentInput.value = firstObj.comment
+
+        detailedRamenUpdateForm.dataset.id = firstObj.id
+    })
+
 
 function renderRamenMenu(){
     fetch("http://localhost:3000/ramens")        
@@ -10,6 +36,8 @@ function renderRamenMenu(){
           ramenArr.forEach(renderOneMenuImage)
     })      
 }
+
+
 
 function renderOneMenuImage(ramenObject){
     const img = document.createElement('img')
@@ -25,7 +53,7 @@ ramenMenu.addEventListener('click', event =>{
         fetch(`http://localhost:3000/ramens/${event.target.dataset.id}`)
             .then(resp => resp.json())
             .then(ramenObj =>{
-
+                
                 const detailImg = document.querySelector('img.detail-image')
                 detailImg.src = ramenObj.image
                 detailImg.alt = ramenObj.name
@@ -43,8 +71,20 @@ ramenMenu.addEventListener('click', event =>{
                 commentInput.value = ramenObj.comment
 
                 detailedRamenUpdateForm.dataset.id = ramenObj.id
-                //has to click to update
                 
+                deleteBttn.classList.add("delete-button")
+                deleteBttn.dataset.id = ramenObj.id
+                detailedRamenUpdateForm.append(deleteBttn)
+
+                deleteBttn.addEventListener('click', evt => {
+                console.log(evt.target.dataset.id)
+
+                fetch(`http://localhost:3000/ramens/${event.target.dataset.id}`,{
+                    method: "DELETE"
+                })
+
+               });
+
             })
     }
 })
@@ -67,11 +107,6 @@ detailedRamenUpdateForm.addEventListener("submit", event => {
 })
 
 
-const deleteBttn = document.createElement('button')
-deleteBttn.classList.add("delete-button")
-deleteBttn.dataset.id = 1
-deleteBttn.textContent = "Delete"
-detailedRamenUpdateForm.append(deleteBttn)
 
 // deleteBttn.addEventListener('click', event => {
 //     if(event.target.className === 'delete-button'){
