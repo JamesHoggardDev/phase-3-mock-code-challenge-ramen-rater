@@ -7,7 +7,7 @@ const deleteBttn = document.querySelector("#ramen-rating > button")
 
 fetch('http://localhost:3000/ramens/1')
     .then(res => res.json())
-    .then(firstObj =>{
+    .then(firstObj => {
 
         const detailImg = document.querySelector('img.detail-image')
         detailImg.src = firstObj.image
@@ -28,6 +28,19 @@ fetch('http://localhost:3000/ramens/1')
         detailedRamenUpdateForm.dataset.id = firstObj.id
     })
 
+    deleteBttn.addEventListener('click', evt => {
+        // console.log(evt.target.dataset.id)
+        const imgtoRemove = document.querySelector(`img[data-id="${evt.target.dataset.id}"]`)
+        console.log(imgtoRemove)
+        
+        fetch(`http://localhost:3000/ramens/${evt.target.dataset.id}`,{
+            method: "DELETE"
+        })
+        .then(res => res.json())
+        .then(emptyObj => {  
+            imgtoRemove.remove();
+        })
+    });
 
 function renderRamenMenu(){
     fetch("http://localhost:3000/ramens")        
@@ -36,8 +49,6 @@ function renderRamenMenu(){
           ramenArr.forEach(renderOneMenuImage)
     })      
 }
-
-
 
 function renderOneMenuImage(ramenObject){
     const img = document.createElement('img')
@@ -72,19 +83,8 @@ ramenMenu.addEventListener('click', event =>{
 
                 detailedRamenUpdateForm.dataset.id = ramenObj.id
                 
-                deleteBttn.classList.add("delete-button")
                 deleteBttn.dataset.id = ramenObj.id
                 detailedRamenUpdateForm.append(deleteBttn)
-
-                deleteBttn.addEventListener('click', evt => {
-                console.log(evt.target.dataset.id)
-
-                fetch(`http://localhost:3000/ramens/${event.target.dataset.id}`,{
-                    method: "DELETE"
-                })
-
-               });
-
             })
     }
 })
@@ -105,19 +105,3 @@ detailedRamenUpdateForm.addEventListener("submit", event => {
     })
     // .then(console.log)
 })
-
-
-
-// deleteBttn.addEventListener('click', event => {
-//     if(event.target.className === 'delete-button'){
-
-
-//         detailImg.remove()
-//     }
-// } ) 
-
-
-
-
-
-// function deleteRamen(){}
