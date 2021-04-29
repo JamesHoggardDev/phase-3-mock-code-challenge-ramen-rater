@@ -65,7 +65,7 @@ detailedRamenUpdateForm.addEventListener("submit", event => {
     })
     .then(console.log)
 
-    detailedRamenUpdateForm.reset()
+    // detailedRamenUpdateForm.reset()
 })
 
 
