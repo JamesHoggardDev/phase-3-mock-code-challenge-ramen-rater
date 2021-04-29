@@ -63,9 +63,7 @@ detailedRamenUpdateForm.addEventListener("submit", event => {
         }, 
         body: JSON.stringify({rating, comment})
     })
-    .then(console.log)
-
-    detailedRamenUpdateForm.reset()
+    // .then(console.log)
 })
 
 
