@@ -10,17 +10,13 @@ function dispAllRamens(){
     fetch('http://localhost:3000/ramens')
     .then(res => res.json())
     .then(ramenArr => {
-        runFirstRamen();
+        runFirstRamen(ramenArr[4]);
         ramenArr.forEach(ramenObj => dispOneRamen(ramenObj))
     })
 }
 
-function runFirstRamen(){
-    fetch('http://localhost:3000/ramens')
-    .then(res => res.json())
-    .then(ramenArr => {
-        makeCentDiv(ramenArr[0]);
-    })
+function runFirstRamen(ramenObj){
+    makeCentDiv(ramenObj);
 }
 
 function dispOneRamen(ramenObj){
@@ -32,7 +28,6 @@ function dispOneRamen(ramenObj){
         detImg.addEventListener('click', evt => {
             makeCentDiv(ramenObj)
         })
-    
     menuDiv.append(detImg)
 }
 
@@ -105,6 +100,5 @@ newRamenForm.addEventListener('submit', evt => {
         },
         body: JSON.stringify(newRamen)
     })
-    .then(res => res.json())
-    .then(console.log)
+    .then(res => res.json());
 })
