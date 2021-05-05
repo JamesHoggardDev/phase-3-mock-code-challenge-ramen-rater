@@ -10,7 +10,7 @@ function dispAllRamens(){
     fetch('http://localhost:3000/ramens')
     .then(res => res.json())
     .then(ramenArr => {
-        runFirstRamen(ramenArr[4]);
+        runFirstRamen(ramenArr[0]);
         ramenArr.forEach(ramenObj => dispOneRamen(ramenObj))
     })
 }
@@ -72,6 +72,8 @@ dispAllRamens();
 deleteBttn.addEventListener('click', evt => {
     let detImgToRemove = document.querySelector(`img.menu-image[data-id="${evt.target.dataset.id}"]`)
     centImg.src = '';
+    centH2.textContent = '';
+    centH3.textContent = '';
     detImgToRemove.remove();
     
     fetch(`http://localhost:3000/ramens/${evt.target.dataset.id}`,{
@@ -89,9 +91,9 @@ newRamenForm.addEventListener('submit', evt => {
         restaurant: newRamenForm.restaurant.value,
         image: newRamenForm.image.value,
         rating: newRamenForm.rating.value,
-        comment: newRamenForm.new-comment.value
+        comment: newRamenForm['new-comment'].value
     }
-
+   
     fetch('http://localhost:3000/ramens', {
         method: "POST",
         headers: {
